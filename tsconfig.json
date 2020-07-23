@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "alwaysStrict": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strict": true,
+    "target": "ES2019",
+    "module": "CommonJS",
+    "outDir": "dist",
+    "moduleResolution": "node"
+  }
+}
