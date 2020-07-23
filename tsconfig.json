@@ -3,12 +3,13 @@
     "alwaysStrict": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
+    "module": "CommonJS",
+    "moduleResolution": "node",
     "noImplicitAny": true,
     "noImplicitThis": true,
-    "strict": true,
-    "target": "ES2019",
-    "module": "CommonJS",
     "outDir": "dist",
-    "moduleResolution": "node"
+    "sourceMap": true,
+    "strict": true,
+    "target": "ES2019"
   }
 }
