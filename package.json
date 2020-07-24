@@ -4,7 +4,8 @@
   "description": "High fantasy roguelike",
   "main": "dist/index.js",
   "scripts": {
-    "debug": "nvm use && npm run-script dev",
+    "clean": "rm -rf dist",
+    "debug": "bash -c 'source bindev/nvmrc_use.sh && nvmrc_use && npm run clean && npm run dev'",
     "dev": "tsc-watch --onSuccess 'node ./dist/index.js'",
     "lint": "eslint -c .eslintrc.js --ext .ts src",
     "lint:fix": "npm run lint -- --fix",
