@@ -1,4 +1,4 @@
-import IKeyEvent from '../input/IKeyEvent';
+import IKeyEvent, { KeyChord } from '../input/IKeyEvent';
 import GameScreen from './Screen';
 
 class ScreenStack {
@@ -18,8 +18,8 @@ class ScreenStack {
     this._currentScreen.show();
   }
 
-  passKeyboardInput(keyEvent: IKeyEvent) {
-    this._currentScreen?.handleKeyboardInput(keyEvent);
+  passKeyboardInput(keyChord: KeyChord) {
+    this._currentScreen?.handleKeyboardInput(keyChord);
   }
 }
 
