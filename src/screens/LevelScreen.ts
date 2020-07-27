@@ -1,7 +1,7 @@
 import GameScreen from './Screen';
 import Entity from '../entities/Entity';
 import { render } from '../display/display';
-import IKeyEvent, { normalizeKeyChord, KeyChord } from '../input/IKeyEvent';
+import IKeyEvent, { normalizeKeyChord, KeyChord } from '../input/KeyChord';
 import loadConfigFile from '../lib/loadConfigFile';
 import IHashMap from '../lib/IHashMap';
 import NotImplementedError from '../errors/NotImplementedError';
@@ -58,6 +58,9 @@ export default class LevelScreen extends GameScreen {
     });
     commands.set('Inventory', () => {
       throw new NotImplementedError();
+    });
+    commands.set('Quit', () => {
+      process.exit();
     });
   }
 

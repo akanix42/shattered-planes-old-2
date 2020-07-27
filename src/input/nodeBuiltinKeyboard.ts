@@ -1,6 +1,6 @@
 import readline from 'readline';
 import screenStack from '../screens/screenStack';
-import { getKeyChord } from './IKeyEvent';
+import { getKeyChord } from './KeyChord';
 
 interface IKeyEvent {
   name: string;

@@ -7,3 +7,4 @@ DirectionSouth: x
 DirectionSouthwest: z
 DirectionSoutheast: c
 Inventory: i
+Quit: escape

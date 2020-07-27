@@ -1,4 +1,4 @@
-import { KeyChord } from '../input/IKeyEvent';
+import { KeyChord } from '../input/KeyChord';
 
 export default abstract class GameScreen {
   abstract show(...args: any[]): void;
