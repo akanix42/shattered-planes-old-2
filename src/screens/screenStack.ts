@@ -1,5 +1,6 @@
-import IKeyEvent, { KeyChord } from '../input/KeyChord';
+import { KeyChord } from '../input/KeyChord';
 import GameScreen from './Screen';
+import app from '../app';
 
 class ScreenStack {
   private _screens: GameScreen[] = [];
@@ -10,7 +11,7 @@ class ScreenStack {
     this._screens.push(screen);
     this._currentScreen = screen;
     this._currentScreen.show();
-    globalThis.currentScreen = screen;
+    app.currentScreen = screen;
   }
 
   pop() {

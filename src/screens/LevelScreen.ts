@@ -1,8 +1,8 @@
+import keybindings from '@config/keymaps/levelScreen.kb.yaml';
 import GameScreen from './Screen';
 import Entity from '../entities/Entity';
 import { render } from '../display/display';
-import IKeyEvent, { normalizeKeyChord, KeyChord } from '../input/KeyChord';
-import loadConfigFile from '../lib/loadConfigFile';
+import { normalizeKeyChord, KeyChord } from '../input/KeyChord';
 import IHashMap from '../lib/IHashMap';
 import NotImplementedError from '../errors/NotImplementedError';
 
@@ -65,11 +65,11 @@ export default class LevelScreen extends GameScreen {
   }
 
   private loadKeymap() {
-    const keymap = loadConfigFile<IHashMap<string>>('keymaps/levelScreen.yaml');
+    // const keymap = loadConfigFile<IHashMap<string>>('keymaps/levelScreen.yaml');
     this.keyboardEventCommandMap.clear();
 
     const { commands } = this;
-    Object.entries(keymap).forEach(([commandName, keyChord]) => {
+    Object.entries(keybindings).forEach(([commandName, keyChord]) => {
       const normalizedKeyChord = normalizeKeyChord(keyChord);
       const command = commands.get(commandName);
       if (command === undefined) {
