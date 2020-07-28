@@ -8,3 +8,4 @@ DirectionSouthwest: kd:z
 DirectionSoutheast: kd:c
 Inventory: i
 Quit: escape
+Zap: Z

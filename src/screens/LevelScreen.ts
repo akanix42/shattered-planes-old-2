@@ -5,6 +5,12 @@ import { render } from '../display/display';
 import { normalizeKeyChord, KeyChord } from '../input/KeyChord';
 import IHashMap from '../lib/IHashMap';
 import NotImplementedError from '../errors/NotImplementedError';
+import SpellComponent from '../components/SpellComponent';
+import TargetDirectionComponent from '../components/TargetDirectionComponent';
+import Direction from '../lib/Direction';
+import type Level from '../levels/Level';
+import app from '../app';
+import ExplodeAfterMovingComponent from '../components/ExplodeAfterMovingComponent';
 
 interface IKeyMap {
   keymap: IHashMap<string>;
@@ -16,7 +22,9 @@ interface ICommand {
 export default class LevelScreen extends GameScreen {
   private commands = new Map<string, ICommand>();
 
-  private entities: Entity[] = [];
+  private entities = new Set<Entity>();
+
+  private level: Level | null = null;
 
   private keyboardEventCommandMap = new Map<string, ICommand>();
 
@@ -29,38 +37,55 @@ export default class LevelScreen extends GameScreen {
   private loadCommands() {
     const { commands } = this;
     commands.set('DirectionNorth', () => {
-      this.entities[0].position.y -= 1;
+      app.player.position.y -= 1;
     });
     commands.set('DirectionNorthwest', () => {
-      this.entities[0].position.x -= 1;
-      this.entities[0].position.y -= 1;
+      app.player.position.x -= 1;
+      app.player.position.y -= 1;
     });
     commands.set('DirectionNortheast', () => {
-      this.entities[0].position.x += 1;
-      this.entities[0].position.y -= 1;
+      app.player.position.x += 1;
+      app.player.position.y -= 1;
     });
     commands.set('DirectionWest', () => {
-      this.entities[0].position.x -= 1;
+      app.player.position.x -= 1;
     });
     commands.set('DirectionEast', () => {
-      this.entities[0].position.x += 1;
+      app.player.position.x += 1;
     });
     commands.set('DirectionSouth', () => {
-      this.entities[0].position.y += 1;
+      app.player.position.y += 1;
     });
     commands.set('DirectionSouthwest', () => {
-      this.entities[0].position.x -= 1;
-      this.entities[0].position.y += 1;
+      app.player.position.x -= 1;
+      app.player.position.y += 1;
     });
     commands.set('DirectionSoutheast', () => {
-      this.entities[0].position.x += 1;
-      this.entities[0].position.y += 1;
+      app.player.position.x += 1;
+      app.player.position.y += 1;
     });
     commands.set('Inventory', () => {
       throw new NotImplementedError();
     });
     commands.set('Quit', () => {
       process.exit();
+    });
+    commands.set('Zap', () => {
+      this.entities.add(
+        Entity.create(
+          { character: '*', color: 'orange', backgroundColor: null },
+          {
+            x: app.player.position.x + 1,
+            y: app.player.position.y,
+          },
+          this.level!,
+          [
+            new SpellComponent(),
+            new TargetDirectionComponent(Direction.East),
+            new ExplodeAfterMovingComponent(5),
+          ],
+        ),
+      );
     });
   }
 
@@ -90,12 +115,13 @@ export default class LevelScreen extends GameScreen {
   }
 
   show() {
-    render(this.entities);
+    render([...this.entities]);
   }
 
   // eslint-disable-next-line class-methods-use-this
-  update(entities: Entity[]) {
+  update(level: Level, entities: Set<Entity>) {
+    this.level = level;
     this.entities = entities;
-    render(entities);
+    render([...entities]);
   }
 }

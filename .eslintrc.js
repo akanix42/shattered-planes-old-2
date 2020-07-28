@@ -14,6 +14,7 @@ module.exports = {
     project: './tsconfig.json',
   },
   rules: {
+    'no-param-reassign': ['error', { props: false }],
     'no-underscore-dangle': 'off',
     '@typescript-eslint/no-use-before-define': [
       'error',

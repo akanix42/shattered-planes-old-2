@@ -1,19 +1,26 @@
 import Entity from '../entities/Entity';
 import LevelScreen from '../screens/LevelScreen';
+import Scheduler from '../scheduler/Scheduler';
+import app from '../app';
 
 export default class Level {
-  entities: Entity[] = [];
+  entities = new Set<Entity>();
+
+  scheduler = new Scheduler();
 
   constructor(private _screen: LevelScreen) {
-    this.entities = [
-      new Entity(
-        {
-          character: '@',
-          color: null,
-          backgroundColor: null,
-        },
-        { x: 5, y: 4 },
-      ),
+    const player = new Entity(
+      {
+        character: '@',
+        color: null,
+        backgroundColor: null,
+      },
+      { x: 5, y: 4 },
+      this,
+    );
+    app.player = player;
+    this.entities = new Set([
+      player,
       new Entity(
         {
           character: '!',
@@ -21,6 +28,7 @@ export default class Level {
           backgroundColor: null,
         },
         { x: 15, y: 4 },
+        this,
       ),
       new Entity(
         {
@@ -29,12 +37,13 @@ export default class Level {
           backgroundColor: '#009',
         },
         { x: 25, y: 4 },
+        this,
       ),
-    ];
+    ]);
     this.update();
   }
 
   update() {
-    this._screen.update(this.entities);
+    this._screen.update(this, this.entities);
   }
 }
