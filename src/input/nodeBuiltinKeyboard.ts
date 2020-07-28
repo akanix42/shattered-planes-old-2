@@ -16,7 +16,9 @@ process.stdin.on('keypress', (_str, keyEvent: IKeyEvent) => {
     process.exit();
   } else {
     const { name, ...modifiers } = keyEvent;
-    const keyChord = getKeyChord(name, modifiers);
-    screenStack.passKeyboardInput(keyChord);
+    const keyChordDown = getKeyChord(name, modifiers, 'keydown');
+    const keyChordUp = getKeyChord(name, modifiers, 'keyup');
+    screenStack.passKeyboardInput(keyChordDown);
+    screenStack.passKeyboardInput(keyChordUp);
   }
 });

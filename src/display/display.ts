@@ -1,10 +1,12 @@
-import { Display } from 'rot-js';
-import { isBrowser } from 'browser-or-node';
 import Entity from '../entities/Entity';
 
-const display = isBrowser
-  ? (await import('./browserDisplay')).default
-  : new Display({ width: 40, height: 9, layout: 'term' });
+// #if target=="web"
+import display from './browserDisplay';
+//  #endif
+// #if target=="node"
+// import display from './nodeDisplay';
+// const display = new Display({ width: 40, height: 9, layout: 'term' });
+//  #endif
 
 export default display;
 
